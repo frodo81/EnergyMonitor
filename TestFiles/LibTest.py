@@ -5,21 +5,28 @@ Created on 01.11.2013
 '''
 import unittest
 from emLibrary.InfoFile import InfoFile
-
+from emLibrary.DataFile import DataFile
+from datetime import datetime
 
 class Test(unittest.TestCase):
-
+    # Location of INFO-File
+    filename = "a01307fe.bin"
+    # datafile = "a0130800.bin"
+    # datafile = "a0130884.bin"
+    # datafile = "a013081f.bin"
+    datafile = "a013085c.bin"
+    
 
     def testConstructor(self):
         print "Starting testConstructor ..."
-        testobject = InfoFile("TestFiles/a01307fe.bin")
+        testobject = InfoFile(self.filename)
         print "    " + testobject.infoHex
         print "Finished testConstructor sucessfully!\n"
         
     def testValue(self):        
         print "Starting testValue ..."
         print "  Test with 2 params"
-        testobject = InfoFile("TestFiles/a01307fe.bin")
+        testobject = InfoFile(self.filename)
         print "    %s" % (testobject.getdec(5, 7)/1000.0)
         print "    %s" % (testobject.getdec(8, 10)/100.0)
         print "  Test with 3 params"
@@ -28,7 +35,7 @@ class Test(unittest.TestCase):
 
     def testAttributes(self):
         print "Starting testAttributes ..."
-        testobject = InfoFile("TestFiles/a01307fe.bin")
+        testobject = InfoFile(self.filename)
         print "  Total power and times"
         print "    Total power: %s kWh" % testobject.TotalPower
         print "    Total recorded time: %s h" % testobject.TotalRecTime
@@ -84,6 +91,19 @@ class Test(unittest.TestCase):
         print "  Date and time information"
         print "    Initial Date and time: %s " % testobject.InitialDate               
         print "Finished testAttributes sucessfully!\n"
+
+    def testDataConstructor(self):
+        print "Starting testDataConstructor ..."
+        testobject = DataFile(self.datafile)
+        print testobject.dataHexList
+        print testobject.StartDateList
+        #print testobject.DataDic
+        print "Finished testConstructor sucessfully!\n"
+#        print testobject.DataDic[datetime(2013, 5, 17, 17, 6)]
+#        print testobject.DataDic[datetime(2013, 5, 17, 17, 7)]
+#        print testobject.DataDic[datetime(2013, 5, 17, 17, 8)]
+#        print testobject.DataDic[datetime(2013, 5, 17, 17, 9)]        
+#        print testobject.DataDic[datetime(2013, 5, 17, 17, 10)]
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testConstructor']
