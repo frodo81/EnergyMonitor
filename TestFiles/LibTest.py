@@ -11,10 +11,10 @@ from datetime import datetime
 class Test(unittest.TestCase):
     # Location of INFO-File
     filename = "a01307fe.bin"
-    # datafile = "a0130800.bin"
+    datafile = "a0130800.bin"
     # datafile = "a0130884.bin"
     # datafile = "a013081f.bin"
-    datafile = "a013085c.bin"
+    # datafile = "a013085c.bin"
     
 
     def testConstructor(self):
@@ -96,15 +96,18 @@ class Test(unittest.TestCase):
         print "Starting testDataConstructor ..."
         testobject = DataFile(self.datafile)
         print testobject.dataHexList
-        print testobject.StartDateList
-        #print testobject.DataDic
-        print "Finished testConstructor sucessfully!\n"
-#        print testobject.DataDic[datetime(2013, 5, 17, 17, 6)]
-#        print testobject.DataDic[datetime(2013, 5, 17, 17, 7)]
+        print testobject.StartDateList        
+#        for key in sorted(testobject.DataDic.iterkeys()):
+#            print "%s : %s" % (key,testobject.DataDic[key])
+            
+        for key in sorted(testobject.DataDic.iterkeys()):
+            print "%s;%s;%s;%s" % (key,testobject.DataDic[key][0],testobject.DataDic[key][1],testobject.DataDic[key][2])    
+#        print testobject.DataDic
 #        print testobject.DataDic[datetime(2013, 5, 17, 17, 8)]
 #        print testobject.DataDic[datetime(2013, 5, 17, 17, 9)]        
 #        print testobject.DataDic[datetime(2013, 5, 17, 17, 10)]
-
+        print "Finished testConstructor sucessfully!\n"
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testConstructor']
     unittest.main()
