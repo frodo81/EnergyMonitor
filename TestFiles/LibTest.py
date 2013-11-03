@@ -7,6 +7,8 @@ import unittest
 from emLibrary.InfoFile import InfoFile
 from emLibrary.DataFile import DataFile
 from datetime import datetime
+import pandas as pd
+from sympy.plotting.plot import plt
 
 class Test(unittest.TestCase):
     # Location of INFO-File
@@ -107,6 +109,14 @@ class Test(unittest.TestCase):
 #        print testobject.DataDic[datetime(2013, 5, 17, 17, 9)]        
 #        print testobject.DataDic[datetime(2013, 5, 17, 17, 10)]
         print "Finished testConstructor sucessfully!\n"
+    
+    def testPandasDataFile(self):
+        
+        testobject = DataFile(self.datafile)
+        pdData = pd.DataFrame(testobject.DataDic.values(), index=testobject.DataDic.keys())
+        pdData.plot()
+        plt.show()
+        print "Finished testAttributes sucessfully!\n"
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testConstructor']

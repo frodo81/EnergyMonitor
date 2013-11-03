@@ -34,3 +34,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# config Files
+.config
+
+# Tempfiles, Vim
+# *.un~
