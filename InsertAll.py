@@ -10,14 +10,28 @@ if __name__ == '__main__':
     from os.path import isfile, join
     import mysqldb.mysqldb as mysqldb
     configFile = 'em.config'    
-    mypath = 'TestFiles'
-    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.bin')) ]
+    mypath = 'NewTestFiles'
+    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.BIN')) ]
     for i in files:
-        try:
-            emDF.DataFile(i).toSqlDB(mysqldb.load_DB_params(configFile))
+        #try:
+            db, user, passwd, host = mysqldb.load_DB_params(configFile) 
+            print db, user, passwd, host  
+            con = mysqldb.con_init(host, user, passwd, db)
+            emDF.DataFile(i).toSqlDB(con)
+            #print "Now do con.query"
+            # con.execute("SET AUTOCOMMIT=0")
+            #v = con.execute("""INSERT INTO `test`.`PandasTest` 
+            #         (`DateTime`, `Voltage`, `Current`, `Phase`) 
+            #     VALUES ('2013-11-13 19:05:00', 236.0, 0.0, 0.0);""")
+            #print "con.query done"
+            #print "Now do con.commit"
+            # con.execute("COMMIT")        
+            #print "con.commit done"
             print "Finished with tile: %s. " % i
-        except:
+            mysqldb.con_close(con)
+        #except:
             print "Fault with %s, maybe a Info File!" % i
+
         
         
     

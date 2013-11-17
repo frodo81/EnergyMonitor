@@ -40,3 +40,6 @@ nosetests.xml
 
 # Tempfiles, Vim
 *.un~
+
+# Ipython Stuff
+.ipynb_checkpoints/

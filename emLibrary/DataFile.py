@@ -26,7 +26,17 @@ class DataFile(object):
         return self.dataHexList    
 
     def getStartDateList(self):
+	for DATA in self.dataHexList:
+	    self.getStartDateList.append(self.getStartDate(DATA))
         return self.StartDateList    
+
+    def getStartDate(self,DATAS):
+	tempdate = datetime((self.getdec(2,2,DATAS)+2000),
+			     self.getdec(0,0,DATAS),
+			     self.getdec(1,1,DATAS),
+			     self.getdec(3,3,DATAS),
+			     self.getdec(4,4,DATAS))
+	return tempdate
 
     def setdataHex(self, DataFile):
         '''??? copy from constructor'''
@@ -64,15 +74,22 @@ class DataFile(object):
                 self.DataDic[(tempdate + timedelta(0,minutes=((i-5)/5) ))]=[self.getdec(i, i+1, DATA)/10.0,self.getdec(i+2, i+3, DATA)/1000.0,self.getdec(i+4, i+4, DATA)/100.0]
                 
     def toSqlDB(self,con):
+	cur = con.cursor()
         SQL = """INSERT INTO `test`.`PandasTest` 
                      (`DateTime`, `Voltage`, `Current`, `Phase`) 
                  VALUES ('%s', %s, %s, %s);"""
         for key in sorted(self.DataDic.iterkeys()):
+	    #con.execute("SET AUTOCOMMIT=0")
+	    # print key
             try:
-                con.query(SQL % (key,self.DataDic[key][0],self.DataDic[key][1],self.DataDic[key][2]))
+		#print SQL % (key,self.DataDic[key][0],self.DataDic[key][1],self.DataDic[key][2])
+		#con.execute("SET AUTOCOMMIT=0")
+                cur.execute(SQL % (key,self.DataDic[key][0],self.DataDic[key][1],self.DataDic[key][2]))
                 con.commit()
             except:
-                pass
-                # print "%s with (%s,%s,%s) is already In DB!" % (key,self.DataDic[key][0],self.DataDic[key][1],self.DataDic[key][2])
+                print "Doing rollback() now ..."
+		con.rollback()
+		print "Done rollback"
+		#print "%s with (%s,%s,%s) is already In DB!" % (key,self.DataDic[key][0],self.DataDic[key][1],self.DataDic[key][2])
                     
 

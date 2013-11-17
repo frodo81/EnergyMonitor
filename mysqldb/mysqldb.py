@@ -7,8 +7,8 @@ import MySQLdb as mysql
 
 def con_init(host,user,passwd,db):
     con = mysql.connect(host,user,passwd,db)
-    cur = con.cursor()
-    return cur
+    # cur = con.cursor()
+    return con
 
 def load_DB_params(configFile):
     f = open(configFile, 'r')
