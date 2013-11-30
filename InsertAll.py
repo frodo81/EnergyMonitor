@@ -10,10 +10,11 @@ if __name__ == '__main__':
     from os.path import isfile, join
     import mysqldb.mysqldb as mysqldb
     configFile = 'em.config'    
-    mypath = 'NewTestFiles'
-    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.BIN')) ]
+    mypath = '/media/bernd/0E22-55D8'
+    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.bin')) ]
+    print files
     for i in files:
-        #try:
+        try:
             db, user, passwd, host = mysqldb.load_DB_params(configFile) 
             print db, user, passwd, host  
             con = mysqldb.con_init(host, user, passwd, db)
@@ -29,7 +30,7 @@ if __name__ == '__main__':
             #print "con.commit done"
             print "Finished with tile: %s. " % i
             mysqldb.con_close(con)
-        #except:
+        except:
             print "Fault with %s, maybe a Info File!" % i
 
         
