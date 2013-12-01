@@ -10,8 +10,8 @@ if __name__ == '__main__':
     from os.path import isfile, join
     import mysqldb.mysqldb as mysqldb
     configFile = 'em.config'    
-    mypath = '/media/bernd/0E22-55D8'
-    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and f.endswith('.bin')) ]
+    mypath = '/home/bernd/git/EnergyMonitor/Messfiles/2013-11-26 ID 0'
+    files = [ mypath + "/" + f for f in listdir(mypath) if (isfile(join(mypath,f)) and (f.endswith('.bin') or f.endswith('.BIN'))) ]
     print files
     for i in files:
         try:
